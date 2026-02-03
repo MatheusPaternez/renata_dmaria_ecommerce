@@ -6,7 +6,9 @@ class Category(models.Model):
     slug = models.SlugField(max_length=255, unique=True) # Slug para URL
 
     class Meta:
-        verbose_name_plural = 'categories' # plural no admin
+        verbose_name = 'Categoria'
+        verbose_name_plural = 'Categorias'
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
@@ -37,7 +39,8 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = 'Products'
+        verbose_name = 'Produto'
+        verbose_name_plural = 'Produtos'
         ordering = ('-created',)
 
     def __str__(self):

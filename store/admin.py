@@ -4,12 +4,12 @@ from .models import Category, Product
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
-    # Cria o slug automaticamente enquanto você digita o nome
     prepopulated_fields = {'slug': ('name',)}
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'slug', 'price', 'in_stock', 'created', 'updated']
-    list_filter = ['in_stock', 'is_active']
-    list_editable = ['price', 'in_stock'] # Permite editar preço direto na lista
+    list_display = ['title', 'category', 'price', 'in_stock', 'is_active', 'created', 'updated']
+    list_filter = ['in_stock', 'is_active', 'category']
+    list_editable = ['price', 'in_stock', 'is_active']
     prepopulated_fields = {'slug': ('title',)}
+    list_per_page = 20
