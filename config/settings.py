@@ -35,6 +35,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,3 +163,42 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/account/dashboard/'
 LOGOUT_REDIRECT_URL = '/account/login/'
+
+# Configurações do Jazzmin (Visual do Admin)
+JAZZMIN_SETTINGS = {
+    # Título na aba do navegador
+    "site_title": "Renata Dmaria Admin",
+    
+    # Título no login e no menu (Brand)
+    "site_header": "Renata Dmaria",
+    
+    # Mensagem de boas-vindas na tela de login
+    "welcome_sign": "Bem-vindo ao Painel Gerencial",
+    
+    # Copyright no rodapé
+    "copyright": "Renata Dmaria Ltd",
+    
+    # Pesquisa geral (Ctrl+K) - busca em Usuários e Pedidos
+    "search_model": ["accounts.User", "orders.Order"],
+
+    # Ícones do Menu (opcional, usa FontAwesome)
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "accounts.User": "fas fa-user",
+        "store.Product": "fas fa-tshirt", # Ícone de camiseta para produtos
+        "store.Category": "fas fa-tags",
+        "orders.Order": "fas fa-shopping-bag",
+    },
+    
+    # Customização da interface
+    "topmenu_links": [
+        {"name": "Ver Loja", "url": "store:product_all", "permissions": ["auth.view_user"]},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
+\
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",   # Opções: cerulean, cosmo, flatly, journal, litera, lumen, lux, materia, minty, pulse, sandstone, simplex, sketchy, slate, solar, spacelab, superhero, united, yeti
+    "dark_mode_theme": None,
+}
