@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Minha Conta{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10">
+    <h1 class="text-3xl font-bold mb-8">Meus Pedidos</h1>
+
+    {% if orders %}
+        <div class="space-y-6">
+            {% for order in orders %}
+            <div class="bg-white shadow rounded-lg p-6 border border-gray-200">
+                <div class="flex justify-between items-center mb-4 border-b pb-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Pedido realizado em</p>
+                        <p class="font-bold">{{ order.created|date:"d/m/Y" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Total</p>
+                        <p class="font-bold text-green-600">R$ {{ order.total_paid }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Status</p>
+                        <span class="px-3 py-1 text-xs font-semibold rounded-full 
+                            {% if order.billing_status %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {% if order.billing_status %}Pago{% else %}Aguardando Pagamento{% endif %}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded text-sm">
+                    <h4 class="font-bold mb-2">Itens:</h4>
+                    {% for item in order.items.all %}
+                        <div class="flex justify-between py-1">
+                            <span>{{ item.quantity }}x {{ item.product.title }}</span>
+                            <span>R$ {{ item.price }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-10 bg-white rounded-lg shadow">
+            <p class="text-gray-500 text-lg">Você ainda não fez nenhum pedido.</p>
+            <a href="/" class="mt-4 inline-block text-pink-600 font-bold hover:underline">Ir para a Loja</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
